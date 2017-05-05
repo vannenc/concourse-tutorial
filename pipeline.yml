@@ -19,7 +19,7 @@ jobs:
           source: {repository: ubuntu}
         run:
           path: ls
-          args: ["super-app", "-l"]
+          args: ["-l", "super-app"]
 
         inputs:
           - name: super-app
