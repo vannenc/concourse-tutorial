@@ -13,7 +13,7 @@ echo ""
 fmt_out="$(gofmt -l ./*.go)"
 fmt_lines="$(gofmt -l ./*.go | wc -l)"
 if [ "${fmt_lines}" -ne "0" ]; then
-    echo "fmt error detected"
+    echo "fmt error detecteggggggd"
     echo "__________________"
     echo "The following files are not formeted correctly"
     echo ""
