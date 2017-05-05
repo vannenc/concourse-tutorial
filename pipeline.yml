@@ -7,63 +7,25 @@ resources:
       uri: https://github.com/vannenc/concourse-tutorial.git
 
 jobs:
-  - name: Test
+  - name: Testing
     plan:
     - get: super-app
       trigger: true
-    - task: Testing
-      config:
-        platform: linux
-        image_resource:
-          type: docker-image
-          source: {repository: golang}
-        run:
-          dir: super-app/scripts
-          path: ./test_fmt.sh
+    - aggregate:
+      - task: lint
+        file: super-app/ci/tasks/lint.yml
+      - task: unit
+        file: super-app/ci/tasks/unit.yml
 
-        inputs:
-          - name: super-app
-    - task: unit
-      config:
-        platform: linux
-        image_resource:
-          type: docker-image
-          source: {repository: golang}
-        run:
-          path: sh
-          args:
-          - -exc
-          - |
-            ./scripts/go_deps.sh
-            ./scripts/test_unit.sh
-          dir: super-app/
-        inputs:
-          - name: super-app
-  - name: Building
+  - name: Building & integeration testing
     plan:
     - get: super-app
-      passed: ["Test"]
+      passed: ["Testing"]
       trigger: true
+
 
     - task: build
-      config:
-        platform: linux
-        image_resource:
-          type: docker-image
-          source: {repository: golang}
-        run:
-          path: sh
-          args:
-          - -exc
-          - |
-            ./scripts/go_deps.sh
-            ./scripts/go_build.sh linux 0.0.1
-            mv super_*_linux_amd64 ../artifact
-          dir: super-app/
-        inputs:
-          - name: super-app
-        outputs:
-          - name: artifact
+      file: super-app/ci/tasks/build.yml
 
     - task: integeration test
       config:
