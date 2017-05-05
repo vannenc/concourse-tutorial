@@ -2,7 +2,7 @@
 resources:
   - name: super-app
     type: git
-    branch: ci
+    branch: master
     source:
       uri: https://github.com/vannenc/concourse-tutorial.git
 
