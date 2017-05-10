@@ -49,6 +49,14 @@ jobs:
             dir: super-app/
           inputs:
             - name: super-app
+    on_success:
+      put: super-app
+      params: {path: super-app, context: Unit tests, status: success}
+
+    on_failure:
+      put: super-app
+      params: {path: super-app, context: Unit tests, status: failure}
+
 
   - name: Building & integeration testing
     plan:
