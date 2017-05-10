@@ -7,7 +7,7 @@ resources:
       uri: https://github.com/vannenc/concourse-tutorial.git
 
 jobs:
-  - name: Testingg
+  - name: Testingggg
     plan:
     - get: super-app
       trigger: true
