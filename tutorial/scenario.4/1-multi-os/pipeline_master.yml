@@ -3,7 +3,7 @@ resources:
   - name: super-app
     type: git
     source:
-      uri: https://github.com/hellofresh/concourse-tutorial.git
+      uri: https://github.com/vannenc/concourse-tutorial.git
       branch: ci
 
 jobs:
